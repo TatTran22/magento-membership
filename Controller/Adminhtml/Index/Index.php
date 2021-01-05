@@ -39,7 +39,7 @@ class Index extends Action implements HttpGetActionInterface
     public function execute(): Page
     {
         $resultPage = $this->pageFactory->create();
-        $resultPage->setActiveMenu('Magento_Catalog::catalog_products');
+        $resultPage->setActiveMenu('Magento_Customer::membership');
         $resultPage->getConfig()->getTitle()->prepend(__('Admin Grid Tutorial Example'));
 
         return $resultPage;
