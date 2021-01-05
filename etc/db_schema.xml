@@ -1,0 +1,14 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="Membership">
+        <column xsi:type="varchar" name="membership_id" nullable="false" length="32" comment="Member Id"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name"/>
+        <column xsi:type="varchar" name="description" nullable="true" length="255" comment="Description"/>
+        <column xsi:type="varchar" name="discount" nullable="false" length="32" comment="Discount"/>
+        <column xsi:type="int" name="discount_type" nullable="false" padding="2" comment="Discount Type"/>
+        <column xsi:type="int" name="status" nullable="false" padding="2" comment="Discount Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="membership_id"/>
+        </constraint>
+    </table>
+</schema>

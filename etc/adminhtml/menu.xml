@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--    xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">-->
+    <!--    <menu>-->
+    <!--        <add id="Magento_Customer::membership" title="Membership" module="Eagle_Membership" translate="title"-->
+    <!--             sortOrder="60" parent="Magento_Customer::customer" action="membership/index/index"-->
+    <!--             resource="Magento_Customer::customer"/>-->
+    <!--    </menu>-->
+
+
+    <!--</config>-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Eagle_Membership::home" title="Membership" module="Eagle_Membership" sortOrder="1000"
+             parent="Magento_Customer::customer" resource="Magento_Customer::customer"
+             action="membership/index/index"/>
+    </menu>
+</config>
