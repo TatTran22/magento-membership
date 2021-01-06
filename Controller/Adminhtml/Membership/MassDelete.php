@@ -1,6 +1,6 @@
 <?php
 
-namespace Eagle\Membership\Controller\Adminhtml\Category;
+namespace Eagle\Membership\Controller\Adminhtml\Membership;
 
 use Magento\Backend\App\Action;
 use Magento\Catalog\Api\CategoryRepositoryInterface;

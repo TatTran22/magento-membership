@@ -3,45 +3,22 @@
 namespace Eagle\Membership\Controller\Adminhtml\Index;
 
 use Magento\Backend\App\Action;
-use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
-class Index extends Action implements HttpGetActionInterface
+class Index extends \Magento\Backend\App\Action
 {
-    /**
-     * @var PageFactory
-     */
-    private $pageFactory;
+    protected $_pageFactory;
 
-    /**
-     * Constructor
-     *
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $rawFactory
-     */
-    public function __construct(
-        Context $context,
-        PageFactory $rawFactory
-    )
+    public function __construct(Action\Context $context, PageFactory $pageFactory)
     {
-        $this->pageFactory = $rawFactory;
-
+        $this->_pageFactory = $pageFactory;
         parent::__construct($context);
     }
 
-    /**
-     * Add the main Admin Grid page
-     *
-     * @return Page
-     */
-    public function execute(): Page
+    public function execute()
     {
-        $resultPage = $this->pageFactory->create();
-        $resultPage->setActiveMenu('Magento_Customer::membership');
-        $resultPage->getConfig()->getTitle()->prepend(__('Admin Grid Tutorial Example'));
-
+        $resultPage = $this->_pageFactory->create();
+        $resultPage->getConfig()->getTitle()->prepend(__('Membership'));
         return $resultPage;
     }
 }

@@ -6,14 +6,14 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="eagle_membership_category_listing_data_source" xsi:type="string">EagleMembershipCategoryCollection</item>
+                <item name="membership_index_listing_data_source" xsi:type="string">EagleMembershipIndexCollection</item>
             </argument>
         </arguments>
     </type>
-    <virtualType name="EagleMembershipCategoryCollection" type="Eagle\Membership\Ui\DataProvider\Category\Listing\Collection">
+    <virtualType name="EagleMembershipIndexCollection" type="Eagle\Membership\Ui\DataProvider\Category\Listing\Collection">
         <arguments>
-            <argument name="mainTable" xsi:type="string">catalog_category_entity</argument>
-            <argument name="resourceModel" xsi:type="string">Eagle\Membership\Model\ResourceModel\Category</argument>
+            <argument name="mainTable" xsi:type="string">membership</argument>
+            <argument name="resourceModel" xsi:type="string">Eagle\Membership\Model\ResourceModel\Index</argument>
         </arguments>
     </virtualType>
 
