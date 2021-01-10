@@ -31,7 +31,7 @@ class Save extends Action
             'description' => $data['description'],
             'discount' => $data['discount'],
             'discount_type' => $data['discount_type'],
-//            'status' => $data['status'],
+            'status' => $data['status'],
         ];
 
         $index = $this->indexFactory->create();

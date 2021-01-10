@@ -48,20 +48,38 @@ class Actions extends Column
      * @param array $dataSource
      * @return array
      */
+//    public function prepareDataSource(array $dataSource)
+//    {
+//        if (isset($dataSource['data']['items'])) {
+//            foreach ($dataSource['data']['items'] as &$item) {
+//                $name = $this->getData('name');
+//                if (isset($item['membership_id'])) {
+//                    $item[$name]['view'] = [
+//                        'href' => $this->_urlBuilder->getUrl($this->_viewUrl, ['id' => $item['membership_id']]),
+//                        'target' => '_blank',
+//                        'label' => __('View on Frontend')
+//                    ];
+//                }
+//            }
+//        }
+//        return $dataSource;
+//    }
     public function prepareDataSource(array $dataSource)
     {
+        $obj = \Magento\Framework\App\ObjectManager::getInstance();
+        $store = $obj->create('\Magento\Store\Model\StoreManagerInterface');
+        $url = $store->getStore()->getBaseUrl();
         if (isset($dataSource['data']['items'])) {
-            foreach ($dataSource['data']['items'] as &$item) {
-                $name = $this->getData('name');
-                if (isset($item['entity_id'])) {
-                    $item[$name]['view'] = [
-                        'href' => $this->_urlBuilder->getUrl($this->_viewUrl, ['id' => $item['entity_id']]),
-                        'target' => '_blank',
-                        'label' => __('View on Frontend')
-                    ];
-                }
+            foreach ($dataSource['data']['items'] as & $item) {
+                $item[$this->getData('name')] = [
+                    'edit' => [
+                        'href' => $url . 'eagle/membership/index/addNew/id/' . $item["membership_id"],
+                        'label' => __('Edit')
+                    ]
+                ];
             }
         }
+
         return $dataSource;
     }
 }
