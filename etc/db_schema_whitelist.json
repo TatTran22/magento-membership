@@ -1,0 +1,15 @@
+{
+    "membership": {
+        "column": {
+            "membership_id": true,
+            "name": true,
+            "description": true,
+            "discount": true,
+            "discount_type": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

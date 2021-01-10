@@ -46,28 +46,28 @@
 
         <paging name="listing_paging"/>
         <exportButton name="export_button"/>
-<!--        <massaction name="listing_massaction">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="config" xsi:type="array">-->
-<!--                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--            <action name="delete">-->
-<!--                <argument name="data" xsi:type="array">-->
-<!--                    <item name="config" xsi:type="array">-->
-<!--                        <item name="type" xsi:type="string">delete</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Delete</item>-->
-<!--                        <item name="url" xsi:type="url" path="*/*/delete"/>-->
-<!--                        <item name="confirm" xsi:type="array">-->
-<!--                            <item name="title" xsi:type="string" translate="true">Delete Row</item>-->
-<!--                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete-->
-<!--                                selected items?-->
-<!--                            </item>-->
-<!--                        </item>-->
-<!--                    </item>-->
-<!--                </argument>-->
-<!--            </action>-->
-<!--        </massaction>-->
+                <massaction name="listing_massaction">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                        </item>
+                    </argument>
+                    <action name="delete">
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="type" xsi:type="string">delete</item>
+                                <item name="label" xsi:type="string" translate="true">Delete</item>
+                                <item name="url" xsi:type="url" path="*/*/delete"/>
+                                <item name="confirm" xsi:type="array">
+                                    <item name="title" xsi:type="string" translate="true">Delete Row</item>
+                                    <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete
+                                        selected items?
+                                    </item>
+                                </item>
+                            </item>
+                        </argument>
+                    </action>
+                </massaction>
     </listingToolbar>
 
     <dataSource name="membership_index_listing_data_source">
@@ -166,32 +166,23 @@
             </argument>
         </column>
 
-        <column name="discount_type">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="visible" xsi:type="boolean">true</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">membership_index</item>
-                    <item name="dataScope" xsi:type="string">rule_type</item>
-                    <item name="label" xsi:type="string" translate="true">Discount Type</item>
-                    <item name="filter" xsi:type="string">text</item>
-                </item>
-            </argument>
+        <column name="discount_type" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Eagle\Membership\Ui\Component\Membership\Listing\Column\DiscountType"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Discount Type</label>
+            </settings>
         </column>
 
-        <column name="status">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="visible" xsi:type="boolean">true</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">membership</item>
-                    <item name="dataScope" xsi:type="string">status</item>
-                    <item name="label" xsi:type="string" translate="true">Status</item>
-                    <item name="filter" xsi:type="string">text</item>
-                </item>
-            </argument>
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Magento\Config\Model\Config\Source\Enabledisable"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
         </column>
     </columns>
+
 </listing>

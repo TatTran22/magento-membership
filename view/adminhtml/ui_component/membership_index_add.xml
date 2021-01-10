@@ -3,8 +3,8 @@
       xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">membership_index_form.membership_index_form_data_source</item>
-            <item name="deps" xsi:type="string">membership_index_form.membership_index_form_data_source</item>
+            <item name="provider" xsi:type="string">membership_index_add.membership_index_add_data_source</item>
+            <item name="deps" xsi:type="string">membership_index_add.membership_index_add_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">Post Information</item>
         <item name="config" xsi:type="array">
@@ -27,10 +27,10 @@
             </item>
         </item>
     </argument>
-    <dataSource name="membership_index_form_data_source">
+    <dataSource name="membership_index_add_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Eagle\Membership\Model\Config\DataProvider</argument>
-            <argument name="name" xsi:type="string">membership_index_form_data_source</argument>
+            <argument name="name" xsi:type="string">membership_index_add_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">membership_id</argument>
             <argument name="requestFieldName" xsi:type="string">membership_id</argument>
         </argument>
@@ -51,13 +51,38 @@
             </item>
         </argument>
 
+        <field name="status" sortOrder="10" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+<!--                    <item name="source" xsi:type="string">block</item>-->
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Status</label>
+                <dataScope>status</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+
         <field name="name">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">Name</item>
                     <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">post_rules</item>
+<!--                    <item name="source" xsi:type="string">post_rules</item>-->
                     <item name="dataScope" xsi:type="string">name</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
@@ -73,7 +98,7 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">Description</item>
                     <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="source" xsi:type="string">post_rules</item>
+<!--                    <item name="source" xsi:type="string">post_rules</item>-->
                     <item name="dataScope" xsi:type="string">description</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
@@ -88,7 +113,7 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">Discount</item>
                     <item name="formElement" xsi:type="string">textarea</item>
-                    <item name="source" xsi:type="string">post_rules</item>
+<!--                    <item name="source" xsi:type="string">post_rules</item>-->
                     <item name="dataScope" xsi:type="string">discount</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
@@ -97,69 +122,41 @@
             </argument>
         </field>
 
-
-    <field name="discount_type" formElement="select">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="validation" xsi:type="array">
-                    <item name="required-entry" xsi:type="boolean">true</item>
+        <field name="discount_type" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
-            </item>
-        </argument>
-        <settings>
-            <dataType>text</dataType>
-            <label translate="true">Discount Type</label>
-            <dataScope>status</dataScope>
-        </settings>
-        <formElements>
-            <select>
-                <settings>
-                    <options>
-                        <option name="fixed" xsi:type="array">
-                            <item name="value" xsi:type="string">fixed</item>
-                            <item name="label" xsi:type="string">Fixed</item>
-                        </option>
-                        <option name="percent" xsi:type="array">
-                            <item name="value" xsi:type="string">percent</item>
-                            <item name="label" xsi:type="string">Percent</item>
-                        </option>
-                    </options>
-                    <caption translate="true">-- Please Select --</caption>
-                </settings>
-            </select>
-        </formElements>
-    </field>
+            </argument>
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Discount Type</label>
+                <dataScope>discount_type</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="fixed" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="label" xsi:type="string">Fixed</item>
+                            </option>
+                            <option name="percent" xsi:type="array">
+                                <item name="value" xsi:type="number">2</item>
+                                <item name="label" xsi:type="string">Percent</item>
+                            </option>
+                        </options>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
 
-    <field name="status" formElement="select">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="validation" xsi:type="array">
-                    <item name="required-entry" xsi:type="boolean">true</item>
-                </item>
-            </item>
-        </argument>
-        <settings>
-            <dataType>text</dataType>
-            <label translate="true">Status</label>
-            <dataScope>status</dataScope>
-        </settings>
-        <formElements>
-            <select>
-                <settings>
-                    <options>
-                        <option name="enable" xsi:type="array">
-                            <item name="value" xsi:type="string">enable</item>
-                            <item name="label" xsi:type="string">Enable</item>
-                        </option>
-                        <option name="disable" xsi:type="array">
-                            <item name="value" xsi:type="string">disable</item>
-                            <item name="label" xsi:type="string">Disable</item>
-                        </option>
-                    </options>
-                    <caption translate="true">-- Please Select --</caption>
-                </settings>
-            </select>
-        </formElements>
-    </field>
+
+
+
+
     </fieldset>
 </form>

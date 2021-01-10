@@ -1,6 +1,6 @@
 <?php
 
-namespace Eagle\Membership\Ui\Component\Category\Listing\Column;
+namespace Eagle\Membership\Ui\Component\Membership\Listing\Column;
 
 use Magento\Framework\Url;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
