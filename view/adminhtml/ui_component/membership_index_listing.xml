@@ -46,28 +46,28 @@
 
         <paging name="listing_paging"/>
         <exportButton name="export_button"/>
-                <massaction name="listing_massaction">
-                    <argument name="data" xsi:type="array">
-                        <item name="config" xsi:type="array">
-                            <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
-                        </item>
-                    </argument>
-                    <action name="delete">
-                        <argument name="data" xsi:type="array">
-                            <item name="config" xsi:type="array">
-                                <item name="type" xsi:type="string">delete</item>
-                                <item name="label" xsi:type="string" translate="true">Delete</item>
-                                <item name="url" xsi:type="url" path="*/*/delete"/>
-                                <item name="confirm" xsi:type="array">
-                                    <item name="title" xsi:type="string" translate="true">Delete Row</item>
-                                    <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete
-                                        selected items?
-                                    </item>
-                                </item>
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="*/*/delete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete Row</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete
+                                selected items?
                             </item>
-                        </argument>
-                    </action>
-                </massaction>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
     </listingToolbar>
 
     <dataSource name="membership_index_listing_data_source">
@@ -184,17 +184,15 @@
             </settings>
         </column>
 
-        <columns name="membership_index_columns">
-            <actionsColumn name="actions" class="Eagle\Membership\Ui\Component\Listing\Grid\Column\Action">
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="resizeEnabled" xsi:type="boolean">false</item>
-                        <item name="resizeDefaultWidth" xsi:type="string">107</item>
-                        <item name="indexField" xsi:type="string">membership_id</item>
-                    </item>
-                </argument>
-            </actionsColumn>
-        </columns>
+        <actionsColumn name="actions" class="Eagle\Membership\Ui\Component\Membership\Listing\Column\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">membership_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
     </columns>
 
 </listing>

@@ -2,43 +2,39 @@
 
 namespace Eagle\Membership\Ui\Component\Membership\Listing\Column;
 
-use Magento\Framework\Url;
+use Magento\Cms\Block\Adminhtml\Page\Grid\Renderer\Action\UrlBuilder;
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Escaper;
+use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 
 class Actions extends Column
 {
-    /**
-     * @var UrlInterface
-     */
-    protected $_urlBuilder;
 
-    /**
-     * @var string
-     */
-    protected $_viewUrl;
+    const CMS_URL_PATH_EDIT = 'membership/index/edit';
+    const CMS_URL_PATH_DELETE = 'membership/index/delete';
 
-    /**
-     * Constructor
-     *
-     * @param \Magento\Framework\View\Element\UiComponent\ContextInterface $context
-     * @param \Magento\Framework\View\Element\UiComponentFactory $uiComponentFactory
-     * @param \Magento\Framework\Url $urlBuilder
-     * @param string $viewUrl
-     * @param array $components
-     * @param array $data
-     */
+    protected  $urlBuilder;
+
+    protected $editUrl;
+
+
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
-        Url $urlBuilder,
-        $viewUrl = '',
+        UrlBuilder $actionUrlBuilder,
+        UrlInterface $urlBuilder,
         array $components = [],
-        array $data = []
+        array $data = [],
+        $editUrl = self::CMS_URL_PATH_EDIT,
+        $deleteUrl = self::CMS_URL_PATH_DELETE,
+        UrlBuilder $scopeUrlBuilder = null
     ) {
-        $this->_urlBuilder = $urlBuilder;
-        $this->_viewUrl = $viewUrl;
+        $this->urlBuilder = $urlBuilder;
+        $this->actionUrlBuilder = $actionUrlBuilder;
+        $this->editUrl = $editUrl;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
@@ -48,22 +44,7 @@ class Actions extends Column
      * @param array $dataSource
      * @return array
      */
-//    public function prepareDataSource(array $dataSource)
-//    {
-//        if (isset($dataSource['data']['items'])) {
-//            foreach ($dataSource['data']['items'] as &$item) {
-//                $name = $this->getData('name');
-//                if (isset($item['membership_id'])) {
-//                    $item[$name]['view'] = [
-//                        'href' => $this->_urlBuilder->getUrl($this->_viewUrl, ['id' => $item['membership_id']]),
-//                        'target' => '_blank',
-//                        'label' => __('View on Frontend')
-//                    ];
-//                }
-//            }
-//        }
-//        return $dataSource;
-//    }
+//
     public function prepareDataSource(array $dataSource)
     {
         $obj = \Magento\Framework\App\ObjectManager::getInstance();
@@ -71,14 +52,25 @@ class Actions extends Column
         $url = $store->getStore()->getBaseUrl();
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                $item[$this->getData('name')] = [
-                    'edit' => [
-                        'href' => $url . 'eagle/membership/index/addNew/id/' . $item["membership_id"],
-                        'label' => __('Edit')
-                    ]
+                $name = $this->getData('name');
+                $item[$name]['edit'] = [
+                    'href' => $this->urlBuilder->getUrl($this->editUrl, ['membership_id' => $item['membership_id']]),
+                    'label' => __('Edit'),
                 ];
+//                $item[$name]['delete'] = [
+//                    'href' => $this->urlBuilder->getUrl($this->deleteUrl, ['membership_id' => $item['membership_id']]),
+//                    'label' => __('delete'),
+//                ];
             }
-        }
+//                $item[$this->getData('name')] = [
+//                    'edit' => [
+//                        'href' => $url . 'eagle/membership/index/add/' , $item["membership_id"],
+//
+//                        'label' => __('Edit')
+//                    ]
+//                ];
+            }
+
 
         return $dataSource;
     }

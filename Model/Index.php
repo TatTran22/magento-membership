@@ -2,7 +2,9 @@
 
 namespace Eagle\Membership\Model;
 
-class Index extends \Magento\Framework\Model\AbstractModel
+use Magento\Framework\Model\AbstractModel;
+
+class Index extends AbstractModel
 {
     protected function _construct()
     {
