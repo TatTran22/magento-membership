@@ -3,6 +3,7 @@
 namespace Eagle\Membership\Model;
 
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\ResourceModel\Db\Context;
 
 class Index extends AbstractModel
 {
