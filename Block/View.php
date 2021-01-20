@@ -6,7 +6,7 @@ use Eagle\Membership\Model\IndexFactory;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 
-class Index extends Template
+class View extends Template
 {
     protected $_indexFactory;
 
@@ -19,9 +19,10 @@ class Index extends Template
         parent::__construct($context);
     }
 
-    public function getPostCollection()
+    public function getSingleData()
     {
-        $index = $this->_indexFactory->create();
-        return $index->getCollection();
+        $id = $this->getRequest()->getParam('id');
+        return $this->_indexFactory->create()->load($id);
+
     }
 }

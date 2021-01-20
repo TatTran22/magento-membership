@@ -5,7 +5,7 @@
             <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-membership">
                 <arguments>
                     <argument name="label" xsi:type="string">Membership</argument>
-                    <argument name="path" xsi:type="string">membership</argument>
+                    <argument name="path" xsi:type="string">membership/index/index</argument>
                 </arguments>
             </block>
         </referenceBlock>

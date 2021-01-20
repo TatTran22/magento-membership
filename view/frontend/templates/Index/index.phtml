@@ -1,9 +1,13 @@
 <?php
-
-$collection = $this->getPostCollection();
+/**
+ * var $block /Eagle\Membership\Block\Index
+ */
+?>
+<?php
+    $collection = $this->getPostCollection();
 ?>
 <table class="data table" id="membership">
-    <caption class="table-caption">Vky Test Data</caption>
+    <caption class="table-caption">Membership</caption>
     <thead>
     <tr>
         <th scope="col" class="col membership_id">ID #</th>
@@ -12,7 +16,7 @@ $collection = $this->getPostCollection();
         <th scope="col" class="col discount">Discount</th>
         <th scope="col" class="col discount_type">Discount Type</th>
         <th scope="col" class="col status">Status</th>
-        <th scope="col" class="col actions">Action</th>
+        <th scope="col" class="col actions">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -21,9 +25,19 @@ $collection = $this->getPostCollection();
             <td data-th="ID #" class="col membership_id"><?php echo $index->getMembershipId(); ?></td>
             <td data-th="Name" class="col name"><?php echo $index->getName(); ?></td>
             <td data-th="Description" class="col description"><?php echo $index->getDescription(); ?></td>
-            <td data-th="Discount" class="col discount"><?php echo $index->getdDiscountt(); ?></td>
-            <td data-th="Discount Type" class="col discount_type"><?php echo $index->getDiscountType(); ?></td>
-            <td data-th="Status" class="col status"><?php echo $index->getStatus(); ?></td>
+            <td data-th="Discount" class="col discount"><?php echo $index->getDiscount(); ?></td>
+            <td data-th="Discount Type" class="col discount_type"><?php if ($index->getDiscountType() == 1) {
+                    echo "Fixed";
+                } else {
+                    echo "Percent";
+                }; ?></td>
+            <td data-th="Status"
+                class="col status"><?php if ($index->getStatus()) echo "Enabled"; else echo "Disabled"; ?></td>
+            <td data-th="Actions" class="col actions">
+                <a href="<?= $block->getUrl('membership/index/view', ['id' => $index->getMembershipId()]) ?>" class="actions view">
+                    <span><?php  echo __('View') ?></span>
+                </a>
+            </td>
         </tr>
     <?php endforeach; ?>
     </tbody>
