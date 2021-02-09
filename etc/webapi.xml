@@ -14,7 +14,7 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
-    <route url="/V1/membership/search" method="GET">
+    <route url="/V1/membership/" method="GET">
         <service class="Eagle\Membership\Api\MembershipRepositoryInterface" method="getList"/>
         <resources>
             <resource ref="anonymous"/>

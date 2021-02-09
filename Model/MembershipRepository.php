@@ -7,15 +7,10 @@
 namespace Eagle\Membership\Model;
 
 use Eagle\Membership\Api\Data\MembershipInterface;
-use Eagle\Membership\Api\Data\MembershipInterfaceFactory;
-use Eagle\Membership\Api\Data\MembershipSearchResultsInterface;
 use Eagle\Membership\Api\MembershipRepositoryInterface;
-use Eagle\Membership\Api\Data;
 use Eagle\Membership\Model\ResourceModel\Index as ResourceBlock;
 use Eagle\Membership\Model\ResourceModel\Index\CollectionFactory as MembershipCollectionFactory;
 use Magento\Framework\Api\DataObjectHelper;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
-use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -28,82 +23,42 @@ use Magento\Store\Model\StoreManagerInterface;
  */
 class MembershipRepository implements MembershipRepositoryInterface
 {
-    /**
-     * @var ResourceBlock
-     */
     protected $resource;
 
-    /**
-     * @var IndexFactory
-     */
     protected $indexFactory;
 
-    /**
-     * @var MembershipCollectionFactory
-     */
     protected $membershipCollectionFactory;
 
-    /**
-     * @var Data\BlockSearchResultsInterfaceFactory
-     */
-    protected $searchResultsFactory;
-
-    /**
-     * @var DataObjectHelper
-     */
     protected $dataObjectHelper;
 
-    /**
-     * @var DataObjectProcessor
-     */
     protected $dataObjectProcessor;
 
-    /**
-     * @var \Eagle\Membership\Api\Data\BlockInterfaceFactory
-     */
     protected $dataBlockFactory;
 
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
     private $storeManager;
-
-    /**
-     * @var CollectionProcessorInterface
-     */
-    private $collectionProcessor;
 
     /**
      * @param ResourceBlock $resource
      * @param IndexFactory $indexFactory
-     * @param MembershipInterfaceFactory $dataBlockFactory
      * @param MembershipCollectionFactory $membershipCollectionFactory
-     * @param Data\MembershipSearchResultsInterfaceFactory $searchResultsFactory
      * @param DataObjectHelper $dataObjectHelper
      * @param DataObjectProcessor $dataObjectProcessor
      * @param StoreManagerInterface $storeManager
-     * @param CollectionProcessorInterface|null $collectionProcessor
      */
     public function __construct(
         ResourceBlock $resource,
         IndexFactory $indexFactory,
-        MembershipInterfaceFactory $dataBlockFactory,
         MembershipCollectionFactory $membershipCollectionFactory,
-        Data\MembershipSearchResultsInterfaceFactory $searchResultsFactory,
         DataObjectHelper $dataObjectHelper,
         DataObjectProcessor $dataObjectProcessor,
-        StoreManagerInterface $storeManager,
-        CollectionProcessorInterface $collectionProcessor = null
+        StoreManagerInterface $storeManager
     ) {
         $this->resource = $resource;
         $this->indexFactory = $indexFactory;
         $this->membershipCollectionFactory = $membershipCollectionFactory;
-        $this->searchResultsFactory = $searchResultsFactory;
         $this->dataObjectHelper = $dataObjectHelper;
-        $this->dataBlockFactory = $dataBlockFactory;
         $this->dataObjectProcessor = $dataObjectProcessor;
         $this->storeManager = $storeManager;
-        $this->collectionProcessor = $collectionProcessor ?: $this->getCollectionProcessor();
     }
 
     /**
@@ -145,27 +100,13 @@ class MembershipRepository implements MembershipRepositoryInterface
         return $membership;
     }
 
-    /**
-     * Load Membership data collection by given search criteria
-     *
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
-     * @param SearchCriteriaInterface $criteria
-     * @return MembershipSearchResultsInterface
-     */
-    public function getList(SearchCriteriaInterface $criteria)
+
+    public function getList()
     {
-        /** @var \Eagle\Membership\Model\ResourceModel\Index\Collection $collection */
-        $collection = $this->membershipCollectionFactory->create();
+        $collection = $this->indexFactory->create();
 
-        $this->collectionProcessor->process($criteria, $collection);
 
-        /** @var MembershipSearchResultsInterface $searchResults */
-        $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
-        $searchResults->setItems($collection->getItems());
-        $searchResults->setTotalCount($collection->getSize());
-        return $searchResults;
+        return $collection;
     }
 
     /**
@@ -193,24 +134,10 @@ class MembershipRepository implements MembershipRepositoryInterface
      * @throws CouldNotDeleteException
      * @throws NoSuchEntityException
      */
-    public function deleteById($membershipId)
+    public function deleteById($membershipId): bool
     {
         return $this->delete($this->getById($membershipId));
     }
 
-    /**
-     * Retrieve collection processor
-     *
-     * @deprecated 102.0.0
-     * @return CollectionProcessorInterface
-     */
-    private function getCollectionProcessor()
-    {
-        if (!$this->collectionProcessor) {
-            $this->collectionProcessor = \Magento\Framework\App\ObjectManager::getInstance()->get(
-                'Eagle\Membership\Model\Api\SearchCriteria\BlockCollectionProcessor'
-            );
-        }
-        return $this->collectionProcessor;
-    }
+
 }

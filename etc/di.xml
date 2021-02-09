@@ -16,5 +16,5 @@
             <argument name="resourceModel" xsi:type="string">Eagle\Membership\Model\ResourceModel\Index</argument>
         </arguments>
     </virtualType>
-
+<preference for="Eagle\Membership\Api\MembershipRepositoryInterface" type="Eagle\Membership\Model\MembershipRepository" />
 </config>

@@ -50,37 +50,6 @@ class Membership extends AbstractModel implements MembershipInterface
         $this->_init(\Eagle\Membership\Model\ResourceModel\Index::class);
     }
 
-//    /**
-//     * Prevent blocks recursion
-//     *
-//     * @return AbstractModel
-//     * @throws \Magento\Framework\Exception\LocalizedException
-//     */
-//    public function beforeSave()
-//    {
-//        if ($this->hasDataChanges()) {
-//            $this->setUpdateTime(null);
-//        }
-//
-//        $needle = 'membership_id="' . $this->getId() . '"';
-//        if (false == strstr($this->getDiscount(), (string) $needle)) {
-//            return parent::beforeSave();
-//        }
-//        throw new \Magento\Framework\Exception\LocalizedException(
-//            __('Make sure that static block content does not reference the block itselfffff.')
-//        );
-//    }
-
-//    /**
-//     * Get identities
-//     *
-//     * @return array
-//     */
-//    public function getName()
-//    {
-//        return [self::CACHE_TAG . '_' . $this->getId(), self::CACHE_TAG . '_' . $this->getName()];
-//    }
-
     /**
      * Retrieve block id
      *
@@ -201,7 +170,7 @@ class Membership extends AbstractModel implements MembershipInterface
      *
      * @return array
      */
-    public function getAvailableStatuses()
+    public function getAvailableStatus()
     {
         return [self::STATUS_ENABLED => __('Enabled'), self::STATUS_DISABLED => __('Disabled')];
     }

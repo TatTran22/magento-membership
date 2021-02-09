@@ -37,7 +37,7 @@ interface MembershipRepositoryInterface
      * @return \Eagle\Membership\Api\Data\MembershipSearchResultsInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
+    public function getList();
 
     /**
      * Delete block.
